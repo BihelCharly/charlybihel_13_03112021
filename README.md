@@ -9,7 +9,7 @@ Sportsee is a part of OpenClassrooms "Front End Developer" process. For this pro
 - 📁 [Repository](https://github.com/BihelCharly/charlybihel_13_03112021)
 - 📑 [Documentation](https://openclassrooms.com/en/paths/314/projects/813/assignment)
 - 🖼️ [Designs](https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API/tree/master/designs)
-- 📑 [Issues](https://openclassrooms.com/en/paths/314/projects/813/assignment)
+- 📑 [Issues](https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API/tree/master/.github/ISSUE_TEMPLATE)
 
 ## Installation
 
@@ -21,7 +21,7 @@ Project uses [Yarn](https://classic.yarnpkg.com/en/docs/) v.1.22.15 as package m
 
 #3 - Clone or Download the backend [API](https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API/tree/master/.github/ISSUE_TEMPLATE)
 
-#4 - Open API folder then install all dependencies required with `npm install` then launch it with `npm run dev:server`, finnlay do `npm run populate-db` to populate the database with two users
+#4 - Open API folder then install all dependencies required with `npm install` then launch it with `npm run dev:server`, finaly do `npm run populate-db` to populate the database with two users
 
 #5 - Clone or Download the project [APP](https://github.com/BihelCharly/charlybihel_13_03112021)
 
