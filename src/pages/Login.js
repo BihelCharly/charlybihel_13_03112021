@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 //import { Link } from "react-router-dom";
 import "../styles/pages/login.scss";
 
@@ -21,7 +22,9 @@ export default function Login() {
             <input type="checkbox" id="remember-me" />
             <label htmlFor="remember-me">Remember me</label>
           </div>
-          <button className="sign-in-button">Sign In</button>
+          <Link to="/profile">
+            <button className="sign-in-button">Sign In</button>
+          </Link>
         </form>
       </section>
     </main>

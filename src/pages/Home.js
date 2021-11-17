@@ -1,8 +1,8 @@
 import React from "react";
-import "../styles/pages/home.scss";
 import iconChat from "../assets/icon-chat.png";
 import iconMoney from "../assets/icon-money.png";
 import iconSecurity from "../assets/icon-security.png";
+import "../styles/pages/home.scss";
 
 export default function Home() {
   return (

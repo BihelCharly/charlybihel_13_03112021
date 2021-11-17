@@ -1,6 +1,6 @@
 import React from "react";
 //import { Link } from "react-router-dom";
-import "../styles/pages/user.scss";
+import "../styles/pages/profile.scss";
 
 export default function User() {
   return (

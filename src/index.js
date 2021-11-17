@@ -5,18 +5,31 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import User from "./pages/User";
+import Profile from "./pages/Profile";
 import Error404 from "./pages/Home";
 import reportWebVitals from "./reportWebVitals";
 import "./index.scss";
+
+// REDUX
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import combineReducers from "../src/redux/combineReducers";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunk from "redux-thunk";
+
+// STORE
+const store = createStore(
+  combineReducers,
+  composeWithDevTools(applyMiddleware(thunk))
+);
 
 const Root = () => (
   <HashRouter basename="/">
     <Header />
     <Routes>
       <Route exact={true} path="/index" element={<Home />} />
-      <Route exact={true} path="/sign-in" element={<Login />} />
-      <Route exact={true} path="/user" element={<User />} />
+      <Route exact={true} path="/login" element={<Login />} />
+      <Route exact={true} path="/profile" element={<Profile />} />
       <Route path="*" element={<Error404 />} />
       <Route element={<Error404 />} />
     </Routes>
@@ -25,9 +38,11 @@ const Root = () => (
 );
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Root />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <React.StrictMode>
+      <Root />
+    </React.StrictMode>
+  </Provider>,
   document.getElementById("root")
 );
 
