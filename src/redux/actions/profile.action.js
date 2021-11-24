@@ -1,25 +1,32 @@
 import axios from "axios";
-import { authState } from "../reducers/auth.reducer";
 
 export const profileActionType = {
-  USER_PROFILE: "USER_PROFILE",
+  PROFILE_SUCESS: "PROFILE_SUCESS",
+  PROFILE_FAIL: "PROFILE_FAIL",
 };
 
-export const userProfile = (token) => {
+const getAuthToken = () => {
+  const token = JSON.parse(localStorage.user).user.token;
+  const expires = JSON.parse(localStorage.user).user.expires;
+  //axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  return [token, expires];
+};
+
+export const userProfile = () => {
+  const token = getAuthToken()[0];
+  console.log(token);
   return async (dispatch) => {
     try {
       const response = await axios.post("/user/profile", {
         headers: { Authorization: `Bearer ${token}` },
       });
       dispatch({
-        type: profileActionType.USER_PROFILE,
-        payload: {
-          firstName: response.data.body.firstName,
-          lastName: response.data.body.lastName,
-        },
+        type: profileActionType.PROFILE_SUCESS,
+        payload: response,
       });
     } catch (error) {
       console.error(error);
+      dispatch({ type: profileActionType.LOGIN_FAIL, payload: {} });
     }
   };
 };

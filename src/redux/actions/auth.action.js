@@ -9,10 +9,12 @@ export const loginAuthAction = (userState) => {
   return async (dispatch) => {
     try {
       const response = await axios.post("/user/login", userState);
-      const { data } = response;
+      const email = userState.email;
+      const token = response.data.body.token;
+      const expires = new Date();
       dispatch({
         type: authActionType.LOGIN_SUCESS,
-        payload: { ...userState, ...data },
+        payload: { email, token, expires },
       });
     } catch (error) {
       console.error(error);
