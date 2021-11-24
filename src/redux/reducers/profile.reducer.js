@@ -1,15 +1,23 @@
-import { USER_PROFILE } from "../actions/profile.actions";
+import { profileActionType } from "../actions/profile.action";
 
-const initialState = {
-  firstName: "",
-  lastName: "",
+export const profilState = {
+  status: null,
+  message: null,
+  body: {
+    id: null,
+    email: null,
+  },
 };
 
-export default function userReducer(state = initialState, action) {
+const profilReducer = (state = profilState, action) => {
   switch (action.type) {
-    case USER_PROFILE:
-      return action.payload;
+    case profileActionType.USER_PROFILE:
+      return {
+        test: action.payload,
+      };
     default:
       return state;
   }
-}
+};
+
+export default profilReducer;

@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Error404 from "./pages/Home";
 import reportWebVitals from "./reportWebVitals";
+import axios from "axios";
 import "./index.scss";
 
 // REDUX
@@ -22,6 +23,9 @@ const store = createStore(
   combineReducers,
   composeWithDevTools(applyMiddleware(thunk))
 );
+
+// AXIOS
+axios.defaults.baseURL = "http://localhost:3001/api/v1";
 
 const Root = () => (
   <HashRouter basename="/">
