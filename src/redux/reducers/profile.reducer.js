@@ -12,9 +12,8 @@ export const profilState = {
 const profilReducer = (state = profilState, action) => {
   switch (action.type) {
     case profileActionType.PROFILE_SUCESS:
-      return {
-        test: action.payload,
-      };
+      const userProfil = { user: action.payload };
+      return userProfil;
     case profileActionType.PROFILE_FAIL:
       return state;
     default:

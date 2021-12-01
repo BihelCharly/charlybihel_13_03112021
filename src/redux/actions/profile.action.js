@@ -5,28 +5,26 @@ export const profileActionType = {
   PROFILE_FAIL: "PROFILE_FAIL",
 };
 
-const getAuthToken = () => {
-  const token = JSON.parse(localStorage.user).user.token;
-  const expires = JSON.parse(localStorage.user).user.expires;
-  //axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  return [token, expires];
-};
-
-export const userProfile = () => {
-  const token = getAuthToken()[0];
+export const profileAction = (token) => {
+  //const token = JSON.parse(localStorage.user).user.token;
+  //console.log(token);
   console.log(token);
   return async (dispatch) => {
     try {
-      const response = await axios.post("/user/profile", {
-        headers: { Authorization: `Bearer ${token}` },
+      const response = await axios({
+        method: "post",
+        url: "/user/profile",
+        headers: { Authorization: "Bearer" + token },
       });
       dispatch({
         type: profileActionType.PROFILE_SUCESS,
-        payload: response,
+        payload: {
+          firstName: response.data.body.firstName,
+          lastName: response.data.body.lastName,
+        },
       });
     } catch (error) {
-      console.error(error);
-      dispatch({ type: profileActionType.LOGIN_FAIL, payload: {} });
+      dispatch({ type: profileActionType.PROFILE_FAIL, payload: {} });
     }
   };
 };

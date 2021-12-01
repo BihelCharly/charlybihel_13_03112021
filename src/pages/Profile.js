@@ -1,8 +1,26 @@
 import React from "react";
-//import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { profileAction } from "../redux/actions/profile.action";
 import "../styles/pages/profile.scss";
 
-export default function User() {
+const mapStateToProps = (state) => {
+  return {
+    user: state,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    profil: (userState) => {
+      dispatch(profileAction(userState));
+    },
+  };
+};
+
+function Profile(props) {
+  const { profil } = props;
+  const token = props.user.loginReducer.user.token;
+  profil(token);
   return (
     <main className="main bg-dark">
       <div className="header">
@@ -47,3 +65,5 @@ export default function User() {
     </main>
   );
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

@@ -1,16 +1,31 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { loginAuthAction } from "../redux/actions/auth.action";
-//import { Link } from "react-router-dom";
+import { loginAction } from "../redux/actions/login.action";
+import { useNavigate } from "react-router";
 import "../styles/pages/login.scss";
 
+const mapStateToProps = (state) => {
+  return {
+    user: state,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (userState, history) => {
+      dispatch(loginAction(userState, history));
+    },
+  };
+};
+
 function Login(props) {
-  const { user, login } = props;
+  const { login } = props;
   const [userState, setUserState] = useState({});
+  const history = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(userState);
+    login(userState, history);
   };
 
   return (
@@ -53,19 +68,5 @@ function Login(props) {
     </main>
   );
 }
-
-const mapStateToProps = (state) => {
-  return {
-    user: state,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    login: (userState) => {
-      dispatch(loginAuthAction(userState));
-    },
-  };
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
