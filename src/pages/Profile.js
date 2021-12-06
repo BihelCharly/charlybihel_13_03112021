@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useAxios } from "../redux/API";
 import logo from "../assets/argentBankLogo.png";
+import NameChanger from "../components/NameChanger";
 import "../styles/pages/profile.scss";
 
 const mapStateToProps = (state) => {
@@ -10,10 +11,14 @@ const mapStateToProps = (state) => {
   };
 };
 
+// RENDERED REACT COMPONENT TO DISPLAY FROM SWITCH CASE STATEMENT RETURNED
 function Profile(props) {
+  // CHECK TOKEN
   let isMyTokenPresent;
   try {
+    // IF HE IS PRESENT THEN GET IT
     isMyTokenPresent = JSON.parse(localStorage.getItem("user")).user.token;
+    // IF IS NOT THEN SEND FALSE
   } catch (error) {
     if (
       error instanceof TypeError ||
@@ -23,26 +28,11 @@ function Profile(props) {
       isMyTokenPresent = false;
     }
   }
+  // IF TOKEN IS PRESENT = THEN RENDER USERISLOGGED CONTENT OTHERWISE RENDER USERISNOTLOGGED CONTENT
   return isMyTokenPresent ? UserIsLogged(isMyTokenPresent) : UserIsNotLogged();
 }
 
-// function Profile(props) {
-//  let [token, setToken] = useState("");
-//   try {
-//     const getToken = JSON.parse(localStorage.getItem("user")).user.token;
-//     setToken(getToken);
-//   } catch (token) {
-//     if (
-//       token instanceof TypeError ||
-//       token instanceof RangeError ||
-//       token instanceof EvalError
-//     ) {
-//       setToken(false);
-//     }
-//   }
-//   return token ? UserIsLogged(token) : UserIsNotLogged();
-// }
-
+// FUNCTION CALLED IF USER IS NOT LOGGED
 function UserIsNotLogged() {
   return (
     <main className="main bg-dark">
@@ -57,13 +47,16 @@ function UserIsNotLogged() {
   );
 }
 
+// FUNCTION CALLED IF USER IS LOGGED
 function UserIsLogged(token) {
+  // AXIOS TO CALL API TO GET DATAS FROM PROFILE
   const { loading, error, user } = useAxios({
     method: "post",
     url: "/user/profile",
     headers: { Authorization: "Bearer" + token },
   });
-  // During loading
+
+  // CATCH LOADING AND DISPLAY
   if (loading) {
     return (
       <main>
@@ -72,20 +65,16 @@ function UserIsLogged(token) {
         </section>
       </main>
     );
-    // If api returning error then redirect to
+    // CATCH ERROR
   } else if (error) {
     return UserIsNotLogged();
-    // If EVERYTHING IS OKAY
+    // IF ALL GOOD
   } else {
     return (
       <main className="main bg-dark">
         <div className="header">
-          <h1>
-            Welcome back
-            <br />
-            {user.firstName} {user.lastName}!
-          </h1>
-          <button className="edit-button">Edit Name</button>
+          {/* // REACT COMPONENT TO HANDLE WHAT SHOULD BE RENDERED */}
+          <NameChanger firstName={user.firstName} lastName={user.lastName} />
         </div>
         <h2 className="sr-only">Accounts</h2>
         <section className="account">

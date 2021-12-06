@@ -1,0 +1,46 @@
+.input-wrapper--new {
+  form {
+    display: grid;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 1%;
+    row-gap: 10%;
+    :nth-child(1),
+    :nth-child(3) {
+      grid-row: 1;
+    }
+    :nth-child(2),
+    :nth-child(4) {
+      grid-row: 2;
+    }
+    :nth-child(5),
+    :nth-child(6) {
+      grid-row: 3;
+    }
+    :nth-child(5) {
+      justify-self: right;
+    }
+    :nth-child(6) {
+      justify-self: left;
+    }
+  }
+  input {
+    width: 200px;
+    padding: 10px 0px;
+    text-indent: 10%;
+    &::placeholder {
+      color: #12002b;
+      font-size: 1.5em;
+    }
+  }
+  button {
+    justify-content: center;
+    width: 120px;
+    background-color: white;
+    border-radius: 5%;
+    border-color: #12002b;
+    font-size: 1.1em;
+    color: #12002b;
+    padding: 10px 0px;
+  }
+}
