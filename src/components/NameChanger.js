@@ -1,33 +1,60 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { editNameAction } from "../redux/actions/editName.action";
 import "../styles/components/NameChanger.scss";
 
+const mapStateToProps = (state) => {
+  return {
+    user: state,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    editName: (userState, firstName, lastName) => {
+      dispatch(editNameAction(userState, firstName, lastName));
+    },
+  };
+};
+
+// EXPORTED COMPONENT BY DEFAULT
 function NameChanger(props) {
+  const { editName } = props;
   const [status, setStatus] = useState(false);
+  const [userState, setUserState] = useState();
   const [firstName, setFirstName] = useState(props.firstName);
   const [lastName, setLastName] = useState(props.lastName);
 
-  return !status
-    ? displayName(setStatus, firstName, lastName)
-    : displayInputs(setStatus, firstName, lastName);
-}
+  // CALLED FROM THE FORM ON SUBMIT
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    editName(userState, firstName, lastName);
+    setStatus(false);
+    setFirstName(userState.firstName);
+    setLastName(userState.lastName);
+  };
 
-const displayInputs = (setStatus, firstName, lastName) => {
-  return (
+  // CHECK STATUS TO RETURN THE INPUTS FORM OR NOT
+  return !status ? (
+    // IF STATUS IS FALSE RETURN FIRST NAME + LAST NAME
+    displayName(setStatus, firstName, lastName)
+  ) : (
+    // IF STATUS IS TRUE RETURN INPUTS TO CHANGE NAME
     <React.Fragment>
       <div className="input-wrapper--new">
         <h1>
           Welcome back
           <br />
         </h1>
-        <form>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <label htmlFor="username"></label>
           <input
             type="text"
             id="username--new"
             placeholder={firstName}
             onChange={(e) => {
-              const newFirstName = e.target.value;
-              console.log(newFirstName);
+              const firstName = e.target.value;
+              setUserState({ ...userState, ...{ firstName } });
             }}
           />
           <label htmlFor="username"></label>
@@ -36,8 +63,8 @@ const displayInputs = (setStatus, firstName, lastName) => {
             id="username-new"
             placeholder={lastName}
             onChange={(e) => {
-              const newLastName = e.target.value;
-              console.log(newLastName);
+              const lastName = e.target.value;
+              setUserState({ ...userState, ...{ lastName } });
             }}
           />
           <button className="save-button" onClick={() => {}}>
@@ -55,8 +82,9 @@ const displayInputs = (setStatus, firstName, lastName) => {
       </div>
     </React.Fragment>
   );
-};
+}
 
+// FUNCTION CALLED IF STATUS IS FALSE MEANING : DON'T SHOW INPUTS
 const displayName = (setStatus, firstName, lastName) => {
   return (
     <React.Fragment>
@@ -77,4 +105,4 @@ const displayName = (setStatus, firstName, lastName) => {
   );
 };
 
-export default NameChanger;
+export default connect(mapStateToProps, mapDispatchToProps)(NameChanger);
