@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+//import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useAxios } from "../redux/API";
 import logo from "../assets/argentBankLogo.png";

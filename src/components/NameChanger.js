@@ -3,6 +3,11 @@ import { connect } from "react-redux";
 import { editNameAction } from "../redux/actions/editName.action";
 import "../styles/components/NameChanger.scss";
 
+// TO CAPITALIZE FIRST LETTER
+export const capitalizeFirstLetter = (string) => {
+  return string[0].toUpperCase() + string.slice(1);
+};
+
 const mapStateToProps = (state) => {
   return {
     user: state,
@@ -49,21 +54,25 @@ function NameChanger(props) {
         <form onSubmit={(e) => handleSubmit(e)}>
           <label htmlFor="username"></label>
           <input
+            required
+            minLength={2}
             type="text"
             id="username--new"
             placeholder={firstName}
             onChange={(e) => {
-              const firstName = e.target.value;
+              let firstName = capitalizeFirstLetter(e.target.value);
               setUserState({ ...userState, ...{ firstName } });
             }}
           />
           <label htmlFor="username"></label>
           <input
+            required
+            minLength={2}
             type="text"
             id="username-new"
             placeholder={lastName}
             onChange={(e) => {
-              const lastName = e.target.value;
+              let lastName = capitalizeFirstLetter(e.target.value);
               setUserState({ ...userState, ...{ lastName } });
             }}
           />

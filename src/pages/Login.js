@@ -37,6 +37,7 @@ function Login(props) {
           <div className="input-wrapper">
             <label htmlFor="username">Username</label>
             <input
+              required
               type="text"
               id="username"
               placeholder="your email"
@@ -49,6 +50,7 @@ function Login(props) {
           <div className="input-wrapper">
             <label htmlFor="password">Password</label>
             <input
+              required
               type="password"
               id="password"
               placeholder="your password"

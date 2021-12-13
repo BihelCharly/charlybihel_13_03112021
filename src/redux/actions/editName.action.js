@@ -12,8 +12,8 @@ export const editNameAction = (userState, firstName, lastName) => {
       const headers = { Authorization: "Bearer" + token };
       const body = userState;
       const response = axios.put("user/profile", body, { headers });
-      const newFirstName = (await response).data.body.firstName;
-      const newLastName = (await response).data.body.lastName;
+      let newFirstName = (await response).data.body.firstName;
+      let newLastName = (await response).data.body.lastName;
       dispatch({
         type: editNameActionType.EDITNAME_SUCESS,
         payload: { newFirstName, newLastName },
