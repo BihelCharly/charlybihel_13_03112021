@@ -16,8 +16,9 @@ export const loginAction = (userState, history) => {
       });
       history("../profile");
     } catch (error) {
-      alert("UTILISATEUR INEXISTANT");
       dispatch({ type: loginActionType.LOGIN_FAIL, payload: {} });
+      alert("Connexion impossible");
+      history("../login");
     }
   };
 };
@@ -27,7 +28,7 @@ export const logoutAction = (userState, history) => {
     try {
       dispatch({
         type: loginActionType.LOGOUT_SUCESS,
-        payload: userState,
+        payload: {},
       });
       history("../");
     } catch (error) {}

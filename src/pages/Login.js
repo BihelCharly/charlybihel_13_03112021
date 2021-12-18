@@ -18,11 +18,13 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+// EXPORTED COMPONENT BY DEFAULT
 function Login(props) {
   const { login } = props;
   const [userState, setUserState] = useState({});
   const history = useNavigate();
 
+  // CALLED FROM THE FORM ON SUBMIT
   const handleSubmit = (e) => {
     e.preventDefault();
     login(userState, history);

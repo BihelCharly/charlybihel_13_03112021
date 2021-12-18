@@ -8,7 +8,9 @@ const editNameReducer = (state = editNameState, action) => {
       const newEditNameState = { isLoggedIn: true, user: action.payload };
       return newEditNameState;
     case editNameActionType.EDITNAME_FAIL:
-      return state;
+      localStorage.clear();
+      const clearEditNameState = { isLoggedIn: false, user: action.payload };
+      return clearEditNameState;
     default:
       return state;
   }

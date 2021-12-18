@@ -12,11 +12,13 @@ const loginReducer = (state = loginState, action) => {
       localStorage.setItem("user", JSON.stringify(newLoginState));
       return newLoginState;
     case loginActionType.LOGIN_FAIL:
-      return state;
-    case loginActionType.LOGOUT_SUCESS:
-      const clearLoginState = { isLoggedIn: false, user: {} };
       localStorage.clear();
-      return clearLoginState;
+      const logInFail = { isLoggedIn: false, user: {} };
+      return logInFail;
+    case loginActionType.LOGOUT_SUCESS:
+      localStorage.clear();
+      const logOutSuccess = { isLoggedIn: false, user: {} };
+      return logOutSuccess;
     default:
       return state;
   }

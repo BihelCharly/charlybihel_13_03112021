@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { editNameAction } from "../redux/actions/editName.action";
+import { useNavigate } from "react-router";
 import "../styles/components/NameChanger.scss";
-
-// TO CAPITALIZE FIRST LETTER
-export const capitalizeFirstLetter = (string) => {
-  return string[0].toUpperCase() + string.slice(1);
-};
 
 const mapStateToProps = (state) => {
   return {
@@ -16,8 +12,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    editName: (userState, firstName, lastName) => {
-      dispatch(editNameAction(userState, firstName, lastName));
+    editName: (userState, firstName, lastName, history) => {
+      dispatch(editNameAction(userState, firstName, lastName, history));
     },
   };
 };
@@ -26,6 +22,7 @@ const mapDispatchToProps = (dispatch) => {
 function NameChanger(props) {
   const { editName } = props;
   const [status, setStatus] = useState(false);
+  const history = useNavigate();
   const [userState, setUserState] = useState();
   const [firstName, setFirstName] = useState(props.firstName);
   const [lastName, setLastName] = useState(props.lastName);
@@ -33,7 +30,7 @@ function NameChanger(props) {
   // CALLED FROM THE FORM ON SUBMIT
   const handleSubmit = (e) => {
     e.preventDefault();
-    editName(userState, firstName, lastName);
+    editName(userState, firstName, lastName, history);
     setStatus(false);
     setFirstName(userState.firstName);
     setLastName(userState.lastName);
@@ -60,7 +57,7 @@ function NameChanger(props) {
             id="username--new"
             placeholder={firstName}
             onChange={(e) => {
-              let firstName = capitalizeFirstLetter(e.target.value);
+              let firstName = e.target.value;
               setUserState({ ...userState, ...{ firstName } });
             }}
           />
@@ -72,7 +69,7 @@ function NameChanger(props) {
             id="username-new"
             placeholder={lastName}
             onChange={(e) => {
-              let lastName = capitalizeFirstLetter(e.target.value);
+              let lastName = e.target.value;
               setUserState({ ...userState, ...{ lastName } });
             }}
           />
